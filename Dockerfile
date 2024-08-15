@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.8
-ARG BUILD_OS=debian
+ARG BUILD_OS=alpine
 FROM --platform=$BUILDPLATFORM tonistiigi/xx:1.4.0 AS xx
 
 ### Build base image for debian
