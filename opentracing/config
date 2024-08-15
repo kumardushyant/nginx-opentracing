@@ -32,6 +32,6 @@ ngx_module_srcs=" \
 "
 ngx_module_libs="-lstdc++ -lopentracing"
 
-. auto/module
+. ./auto/module
 
 OT_NGX_SRCS="$ngx_module_srcs"
