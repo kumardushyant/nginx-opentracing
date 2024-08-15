@@ -20,7 +20,7 @@ concurrency:
 jobs:
   build-docker:
     name: Build Docker Image
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     services:
       registry:
         image: registry:2
