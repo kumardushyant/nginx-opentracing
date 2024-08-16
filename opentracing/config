@@ -35,3 +35,5 @@ ngx_module_libs="-lstdc++ -lopentracing"
 . $PWD/auto/module
 
 OT_NGX_SRCS="$ngx_module_srcs"
+
+echo $OT_NGX_SRCS
