@@ -227,9 +227,9 @@ FROM build-nginx-${BUILD_OS} AS build-nginx
 COPY --from=jaeger-cpp-client /hunter /hunter
 COPY . /src
 
-RUN curl -fsSL -O https://github.com/nginx/nginx/archive/release-${NGINX_VERSION}.tar.gz \
-    && tar zxf release-${NGINX_VERSION}.tar.gz \
-    && cd nginx-release-${NGINX_VERSION} \
+RUN curl -fsSL -O https://github.com/nginx/nginx/archive/release-1.25.5.tar.gz \
+    && tar zxf release-1.25.5.tar.gz \
+    && cd nginx-release-1.25.5 \
     && auto/configure \
     --with-compat \
     --add-dynamic-module=/src/opentracing \
@@ -237,7 +237,7 @@ RUN curl -fsSL -O https://github.com/nginx/nginx/archive/release-${NGINX_VERSION
     --with-ld-opt="-fPIE -fPIC -Wl,-z,relro -Wl,-z,now -L/hunter/lib" \
     --with-debug \
     && make -j$(nproc) modules \
-    && cp objs/ngx_http_opentracing_module.so /usr/lib/nginx/modules/
+    && cp objs/ngx_http_opentracing_module.so /etc/nginx/modules/
 
 
 ### Base image for alpine
@@ -252,7 +252,7 @@ FROM nginx:1.26.2 AS nginx-debian
 ### Build final image
 FROM nginx-${BUILD_OS} AS final
 
-COPY --from=build-nginx /usr/lib/nginx/modules/ /usr/lib/nginx/modules/
+COPY --from=build-nginx /etc/nginx/modules/ /etc/nginx/modules/
 COPY --from=dd-opentracing-cpp /usr/local/lib/ /usr/local/lib/
 COPY --from=jaeger-cpp-client /usr/local/lib/ /usr/local/lib/
 COPY --from=zipkin-cpp-opentracing /usr/local/lib/ /usr/local/lib/
