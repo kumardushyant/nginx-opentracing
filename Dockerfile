@@ -214,7 +214,7 @@ RUN DEBIAN_VERSION=$(awk -F '=' '/^VERSION_CODENAME=/ {print $2}' /etc/os-releas
 
 
 ### Base build image for alpine
-FROM nginx:1.26.2-alpine AS build-nginx-alpine
+FROM registry.k8s.io/ingress-nginx/nginx-1.25:v0.0.12@sha256:2d471b3a34dc43d10c3f3d7f2a6e8a2ecf7654a4197e56374261c1c708b16365 AS build-nginx-alpine
 RUN apk add --no-cache \
     build-base \
     pcre2-dev \
@@ -241,7 +241,7 @@ RUN curl -fsSL -O https://github.com/nginx/nginx/archive/release-${NGINX_VERSION
 
 
 ### Base image for alpine
-FROM nginx:1.26.2-alpine AS nginx-alpine
+FROM registry.k8s.io/ingress-nginx/nginx-1.25:v0.0.12@sha256:2d471b3a34dc43d10c3f3d7f2a6e8a2ecf7654a4197e56374261c1c708b16365 AS nginx-alpine
 RUN apk add --no-cache libstdc++
 
 

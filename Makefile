@@ -1,4 +1,6 @@
-NGINX_VERSION=$(shell grep -m1 'FROM nginx:' <Dockerfile | awk -F'[: ]' '{print $$3}')
+NGINX_VERSION=1.25.5
+
+# $(shell grep -m1 'FROM nginx:' <Dockerfile | awk -F'[: ]' '{print $$3}')
 
 .PHONY: docker-image
 docker-image:
